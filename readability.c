@@ -4,12 +4,14 @@
 #include <string.h>
 
 int count_letters(string text);
+int count_spaces(string text);
 
 int main(void) {
    
     // Get input text from user to be evaluated
     string text = get_string("Enter text: ");
     printf("%i\n", count_letters(text));
+    printf("%i\n", count_spaces(text));
     
 }
     
@@ -28,6 +30,16 @@ int count_letters(string text) {
 }
     
     // Print the number of words
+int count_spaces(string text) {
+    int spaces = 0;
+    
+    for (int i = 0; i < strlen(text); i++) {
+        if (isspace(text[i])) {
+            spaces ++;
+        }
+    }
+    return (spaces + 1);
+}
     
     // Print the number of sentences
     
@@ -36,3 +48,4 @@ int count_letters(string text) {
     // Calculate the average number of sentences per 100 words in the text (= S)
     
     // Calculate the Coleman-Liau index
+    
