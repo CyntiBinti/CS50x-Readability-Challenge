@@ -2,10 +2,12 @@
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 int count_letters(string text);
 int count_spaces(string text);
 int count_sentences(string text);
+int index;
 
 // An array storing each of the text grade options - change 1,2,3 to the actual grade. Will do this later!
 int GRADEarr[] = {1,2,3};
@@ -18,6 +20,17 @@ int main(void) {
     printf("%i\n", count_letters(text));
     printf("%i\n", count_spaces(text));
     printf("%i\n", count_sentences(text));
+    printf("%i\n", index);
+    
+    
+    // Calculate the average number of letters per 100 words in the text (= L)
+    float L = (float)(count_letters(text)) / (float)(count_spaces(text)) * 100;
+
+    // Calculate the average number of sentences per 100 words in the text (= S)
+    float S = (float)(count_sentences(text)) / (float)(count_spaces(text)) * 100;
+
+    // Calculate the Coleman-Liau index
+    index = round(0.0588 * L - 0.296 * S - 15.8);
 
 }
 
@@ -56,13 +69,6 @@ int main(void) {
             sentences ++;
         }
     }
-    return (sentences);
+    return sentences;
 }
-
-    // Calculate the average number of letters per 100 words in the text (= L)
-    
-
-    // Calculate the average number of sentences per 100 words in the text (= S)
-
-    // Calculate the Coleman-Liau index
 
