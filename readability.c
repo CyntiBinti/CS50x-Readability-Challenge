@@ -9,9 +9,6 @@ int count_spaces(string text);
 int count_sentences(string text);
 int index;
 
-// An array storing each of the text grade options - change 1,2,3 to the actual grade. Will do this later!
-int GRADEarr[] = {1,2,3};
-
 //main function gathers input text and outputs letters, words, and sentences. Will finally make it output the grade too
 int main(void) {
 
@@ -21,6 +18,9 @@ int main(void) {
     printf("Words: %i\n", count_spaces(text));
     printf("Sentences: %i\n", count_sentences(text));
     
+    // Calculate the Coleman-Liau index
+    index = round(0.0588 * ((float)count_letters(text) / (float)count_spaces(text) * 100) - 0.296 * ((float)count_sentences(text) / (float)count_spaces(text) * 100) - 15.8);
+
     // Print calculated grade of text
     if (index < 1) {
         printf("Before Grade 1\n");
@@ -29,15 +29,6 @@ int main(void) {
     } else {
         printf("Grade %i\n", index);
     }
-    
-    // Calculate the average number of letters per 100 words in the text (= L)
-    float L = (float)count_letters(text) / (float)count_spaces(text) * 100;
-
-    // Calculate the average number of sentences per 100 words in the text (= S)
-    float S = (float)count_sentences(text) / (float)count_spaces(text) * 100;
-
-    // Calculate the Coleman-Liau index
-    index = round(0.0588 * L - 0.296 * S - 15.8);
 
 }
 
@@ -46,9 +37,7 @@ int main(void) {
     int letters = 0;
 
     for (int i = 0; i < strlen(text); i++) {
-        if (isupper(text[i])) {
-            letters ++;
-        } else if (islower(text[i])) {
+        if (isupper(text[i]) || islower(text[i])) {
             letters ++;
         }
     }
